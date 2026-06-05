@@ -14,14 +14,48 @@
   Plataforma educacional de conexão entre crianças com TEA, responsáveis e tutores voluntários para apoio no desenvolvimento de habilidades matemáticas.
 </p>
 
-<p align="center">
-  <a href="#sobre-o-projeto">Sobre</a> •
-  <a href="#problema">Problema</a> •
-  <a href="#solução">Solução</a> •
-  <a href="#público-alvo">Público-alvo</a> •
-  <a href="#tecnologias">Tecnologias</a> •
-  <a href="#status-do-projeto">Status</a>
-</p>
+<table align="center">
+  <tr>
+    <td align="center" width="170">
+      <a href="#sobre-o-projeto">
+        <strong>Sobre</strong><br />
+        <sub>Visão geral</sub>
+      </a>
+    </td>
+    <td align="center" width="170">
+      <a href="#problema">
+        <strong>Problema</strong><br />
+        <sub>Contexto</sub>
+      </a>
+    </td>
+    <td align="center" width="170">
+      <a href="#solução">
+        <strong>Solução</strong><br />
+        <sub>Proposta</sub>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="170">
+      <a href="#público-alvo">
+        <strong>Público-alvo</strong><br />
+        <sub>Para quem</sub>
+      </a>
+    </td>
+    <td align="center" width="170">
+      <a href="#tecnologias">
+        <strong>Tecnologias</strong><br />
+        <sub>Stack</sub>
+      </a>
+    </td>
+    <td align="center" width="170">
+      <a href="#status-do-projeto">
+        <strong>Status</strong><br />
+        <sub>Andamento</sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
 ---
 
