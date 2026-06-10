@@ -405,6 +405,47 @@ function setupLoginRoleTabs() {
   });
 }
 
+function setupSidebarNav() {
+  const navs = document.querySelectorAll(".sidebar-nav, .bottom-nav");
+  if (!navs.length) return;
+
+  const allLinks = [...navs].flatMap((nav) => [...nav.querySelectorAll("a[href^='#']")]);
+  if (!allLinks.length) return;
+
+  const sectionIds = [...new Set(allLinks.map((a) => a.getAttribute("href").slice(1)))];
+  const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+  if (!sections.length) return;
+
+  const setActive = (id) => {
+    navs.forEach((nav) => {
+      nav.querySelectorAll("a").forEach((link) => {
+        const href = link.getAttribute("href");
+        const isMatch = id ? href === `#${id}` : href === "responsavel.html";
+        link.classList.toggle("active", isMatch);
+      });
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  sections.forEach((s) => observer.observe(s));
+
+  window.addEventListener("scroll", () => {
+    const anyVisible = sections.some((s) => {
+      const rect = s.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.7 && rect.bottom > 0;
+    });
+    if (!anyVisible) setActive(null);
+  }, { passive: true });
+}
+
 setupFocusMode();
 setupFloatingHeader();
 setupMobileMenu();
@@ -419,3 +460,4 @@ setupChildSignupForm();
 setupMoodOptions();
 setupFakeForms();
 setupFeatureAccordion();
+setupSidebarNav();

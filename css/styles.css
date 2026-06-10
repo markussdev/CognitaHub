@@ -2153,6 +2153,7 @@ h3 {
 
 .sidebar {
   position: sticky;
+  z-index: 10;
   top: 0;
   display: flex;
   height: 100vh;
@@ -3705,7 +3706,7 @@ h3 {
 .app-body {
   min-height: 100vh;
   background:
-    linear-gradient(135deg, rgba(20, 17, 98, 0.08), rgba(255, 168, 0, 0.06)),
+    linear-gradient(135deg, rgba(255, 168, 0, 0.08), rgba(20, 17, 98, 0.08)),
     url("../assets/background.png") center / cover fixed no-repeat;
 }
 
@@ -3714,28 +3715,9 @@ h3 {
   isolation: isolate;
 }
 
-.app-main::before {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background:
-    radial-gradient(circle at 18% 12%, rgba(255, 168, 0, 0.16), transparent 28%),
-    radial-gradient(circle at 90% 18%, rgba(84, 0, 66, 0.14), transparent 24%),
-    linear-gradient(180deg, rgba(255, 255, 252, 0.82), rgba(244, 242, 255, 0.92));
-  content: "";
-}
+/* app-main::before removed — background lives on .app-body, not a fixed layer that bleeds over the sidebar */
 
-.app-main::after {
-  position: fixed;
-  inset: 24px;
-  z-index: -1;
-  border: 1px solid rgba(255, 255, 255, 0.48);
-  border-radius: 38px;
-  background: rgba(255, 255, 252, 0.52);
-  backdrop-filter: blur(18px);
-  content: "";
-  pointer-events: none;
-}
+/* glass-frame removed — content cards carry their own surface */
 
 .app-topbar-v2 {
   display: grid;
@@ -4044,5 +4026,192 @@ h3 {
 
   .mood-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ========== RESPONSÁVEL V3 ========== */
+
+.app-main-compact {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.app-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.app-page-header .btn {
+  flex: 0 0 auto;
+}
+
+.child-overview-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255, 255, 252, 0.5);
+  border-radius: var(--radius-lg);
+  padding: clamp(26px, 4vw, 44px);
+  background:
+    radial-gradient(circle at 84% 16%, rgba(255, 168, 0, 0.28), transparent 24%),
+    linear-gradient(135deg, rgba(20, 17, 98, 0.96), rgba(84, 0, 66, 0.88)),
+    url("../assets/background.png") center / cover;
+  color: var(--warm-white);
+  box-shadow: 0 24px 80px rgba(20, 17, 98, 0.2);
+}
+
+.child-overview-card::after {
+  position: absolute;
+  right: -120px;
+  bottom: -180px;
+  width: 360px;
+  height: 360px;
+  border: 1px solid rgba(255, 255, 252, 0.16);
+  border-radius: 999px;
+  content: "";
+  pointer-events: none;
+}
+
+.child-overview-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.child-overview-copy .app-kicker {
+  color: var(--gold);
+}
+
+.child-overview-copy h2 {
+  max-width: 760px;
+  margin: 4px 0 0;
+  color: var(--warm-white);
+  font-size: clamp(2.2rem, 4.8vw, 4.7rem);
+  line-height: 1;
+}
+
+.child-overview-copy p {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: rgba(255, 255, 252, 0.76);
+  font-size: 1rem;
+}
+
+.child-overview-card img {
+  position: relative;
+  z-index: 1;
+  width: min(130px, 18vw);
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.24));
+}
+
+.child-overview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.child-overview-meta span {
+  border: 1px solid rgba(255, 255, 252, 0.18);
+  border-radius: 999px;
+  padding: 9px 13px;
+  background: rgba(255, 255, 252, 0.1);
+  color: rgba(255, 255, 252, 0.86);
+  font-weight: 750;
+}
+
+.child-overview-meta strong {
+  color: var(--warm-white);
+}
+
+.care-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.care-card {
+  min-height: 190px;
+  border: 1px solid rgba(20, 17, 98, 0.1);
+  border-radius: 26px;
+  padding: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 252, 0.94), rgba(255, 255, 252, 0.82)),
+    radial-gradient(circle at 100% 0%, rgba(255, 168, 0, 0.12), transparent 28%);
+  box-shadow: 0 16px 50px rgba(20, 17, 98, 0.07);
+}
+
+.care-card-wide {
+  grid-column: span 2;
+}
+
+.progress-care-card {
+  grid-column: span 2;
+}
+
+.care-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--wine);
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.care-card h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.12;
+}
+
+.care-card p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.care-card .btn {
+  margin-top: 18px;
+}
+
+.progress-care-card .progress-track {
+  margin: 16px 0 12px;
+}
+
+@media (max-width: 1080px) {
+  .care-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .care-card-wide,
+  .progress-care-card {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .care-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .care-card-wide,
+  .progress-care-card {
+    grid-column: span 1;
+  }
+
+  .child-overview-card {
+    grid-template-columns: 1fr;
+  }
+
+  .child-overview-card img {
+    display: none;
   }
 }
