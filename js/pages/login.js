@@ -40,7 +40,15 @@ async function redirectExistingSession() {
   if (!user) return
 
   // Completa cadastro pendente (confirmação de email ligada ou falha anterior).
-  await completePendingSignup(user)
+  const pendingResult = await completePendingSignup(user)
+
+  if (pendingResult.error) {
+    // Não deixa o responsável entrar no painel sem a criança gravada.
+    await supabase.auth.signOut()
+    errorBox.textContent =
+      'Sua conta foi acessada, mas não foi possível concluir o cadastro. Tente novamente ou fale com a equipe Cognita.'
+    return
+  }
 
   const profile = await getProfile(user.id)
 
@@ -77,7 +85,15 @@ form.addEventListener('submit', async (event) => {
 
   // Completa cadastro pendente ANTES da checagem de status: o tutor fica
   // "pending" até a aprovação, mas a candidatura precisa ser gravada.
-  await completePendingSignup(user)
+  const pendingResult = await completePendingSignup(user)
+
+  if (pendingResult.error) {
+    // Não deixa o responsável entrar no painel sem a criança gravada.
+    await supabase.auth.signOut()
+    errorBox.textContent =
+      'Sua conta foi acessada, mas não foi possível concluir o cadastro. Tente novamente ou fale com a equipe Cognita.'
+    return
+  }
 
   if (profile.status !== 'active') {
     await supabase.auth.signOut()

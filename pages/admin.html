@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin | CognitaHub</title>
     <link rel="icon" type="image/png" href="../assets/logo-icon-transparent.png" />
+    <link rel="stylesheet" href="../css/tokens.css" />
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/internal.css" />
   </head>
@@ -18,7 +19,7 @@
         <div class="sidebar-context">
           <span class="context-eyebrow">Admin</span>
           <strong>Operação</strong>
-          <small>14 pendências hoje</small>
+          <small data-count-context>Carregando…</small>
         </div>
 
         <p class="nav-label">Menu</p>
@@ -30,7 +31,7 @@
               <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
             </svg>
             <span>Triagem</span>
-            <span class="nav-badge">18</span>
+            <span class="nav-badge" data-count-total>—</span>
           </a>
           <a href="#matches">
             <svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -99,10 +100,10 @@
 
         <div class="sidebar-footer">
           <div class="account">
-            <div class="account-avatar">EC</div>
+            <div class="account-avatar" data-account-avatar>EC</div>
             <div class="account-info">
-              <strong>Equipe Cognita</strong>
-              <span>admin@cognitahub.org</span>
+              <strong data-account-name>Equipe Cognita</strong>
+              <span data-account-email>admin@cognitahub.org</span>
             </div>
           </div>
 
@@ -130,24 +131,24 @@
 
         <section class="admin-filters" aria-label="Filtros do funil">
           <button class="admin-filter active" type="button" data-admin-filter="triagem" aria-pressed="true">
-            <span>Aguardam análise</span>
-            <strong>18</strong>
-            <small class="filter-meta">+3 desde segunda</small>
+            <span>Crianças em análise</span>
+            <strong data-count-children>—</strong>
+            <small class="filter-meta">cadastros aguardando a equipe</small>
           </button>
           <button class="admin-filter" type="button" data-admin-filter="triagem" data-admin-focus="tutores-validar" aria-pressed="false">
             <span>Tutores a validar</span>
-            <strong>7</strong>
-            <small class="filter-meta">2 novos esta semana</small>
+            <strong data-count-tutors>—</strong>
+            <small class="filter-meta">candidaturas recebidas</small>
           </button>
           <button class="admin-filter" type="button" data-admin-filter="matches" aria-pressed="false">
             <span>Pareamentos sugeridos</span>
-            <strong>5</strong>
-            <small class="filter-meta">3 prontos pra decisão</small>
+            <strong>—</strong>
+            <small class="filter-meta">disponível na próxima fase</small>
           </button>
           <button class="admin-filter" type="button" data-admin-filter="relatorios" aria-pressed="false">
             <span>Relatórios a liberar</span>
-            <strong>4</strong>
-            <small class="filter-meta">famílias aguardando</small>
+            <strong>—</strong>
+            <small class="filter-meta">disponível na próxima fase</small>
           </button>
         </section>
 
@@ -155,74 +156,14 @@
           <article class="pipeline-col" id="triagem">
             <header>
               <h2>Triagem</h2>
-              <span>18</span>
+              <span data-count-triagem>—</span>
             </header>
 
-            <article class="pipeline-card">
-              <div class="card-id">
-                <span class="card-avatar" aria-hidden="true">LC</span>
-                <div>
-                  <p class="app-kicker">Criança</p>
-                  <h3 data-child-signup-output="name">Lia Costa</h3>
-                </div>
-              </div>
-              <p>
-                <span data-child-signup-output="age">9 anos</span> ·
-                <span data-child-signup-output="mathDifficulties">problemas simples do cotidiano e geometria básica</span>
-              </p>
+            <p class="app-kicker queue-label">Crianças em análise</p>
+            <div data-list-children aria-live="polite"></div>
 
-              <div class="pipeline-tags" aria-label="Estado do cadastro">
-                <span>aguarda análise</span>
-                <span>perfil inicial</span>
-              </div>
-
-              <div class="row-actions">
-                <button class="btn btn-primary btn-sm" type="button">Analisar</button>
-                <a class="btn btn-ghost btn-sm" href="perfil-crianca.html">Ver perfil</a>
-              </div>
-            </article>
-
-            <article class="pipeline-card" id="tutores-validar">
-              <div class="card-id">
-                <span class="card-avatar blue" aria-hidden="true">AM</span>
-                <div>
-                  <p class="app-kicker">Tutor</p>
-                  <h3>Ana Martins</h3>
-                </div>
-              </div>
-              <p>Psicopedagogia · experiência com TEA e reforço de matemática</p>
-
-              <div class="pipeline-tags" aria-label="Estado da inscrição">
-                <span>documentos enviados</span>
-                <span>aguarda validação</span>
-              </div>
-
-              <div class="row-actions">
-                <button class="btn btn-primary btn-sm" type="button">Aprovar tutor</button>
-                <button class="btn btn-ghost btn-sm" type="button">Revisar</button>
-              </div>
-            </article>
-
-            <article class="pipeline-card">
-              <div class="card-id">
-                <span class="card-avatar" aria-hidden="true">PL</span>
-                <div>
-                  <p class="app-kicker">Criança</p>
-                  <h3>Pedro Lima</h3>
-                </div>
-              </div>
-              <p>6 anos · reconhecimento de números e contagem com apoio visual</p>
-
-              <div class="pipeline-tags" aria-label="Estado do cadastro">
-                <span>novo cadastro</span>
-                <span>consentimento registrado</span>
-              </div>
-
-              <div class="row-actions">
-                <button class="btn btn-primary btn-sm" type="button">Analisar</button>
-                <button class="btn btn-ghost btn-sm" type="button">Detalhes</button>
-              </div>
-            </article>
+            <p class="app-kicker queue-label" id="tutores-validar">Tutores a validar</p>
+            <div data-list-tutors aria-live="polite"></div>
           </article>
 
           <article class="pipeline-col" id="matches">

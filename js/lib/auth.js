@@ -88,6 +88,14 @@ export async function requireRole(...allowedRoles) {
     return null
   }
 
+  // Role certa mas acesso não liberado (pending/rejected/inactive):
+  // volta pro login, que mostra a mensagem de status.
+  if (profile.status !== 'active') {
+    await supabase.auth.signOut()
+    window.location.replace('/pages/login.html')
+    return null
+  }
+
   return { user, profile }
 }
 

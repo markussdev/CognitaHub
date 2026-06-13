@@ -50,20 +50,38 @@ as $$
   );
 $$;
 
--- 2) Remove todas as policies antigas das tabelas afetadas ----
+-- 2) Remove as policies antigas das tabelas afetadas ----------
+-- (sem bloco "do $$": o parser do SQL Editor recusa o comando "do")
+-- 2a) Esta consulta GERA um drop para cada policy existente —
+-- copie o resultado da coluna "comando_drop" e rode aqui:
 
-do $$
-declare p record;
-begin
-  for p in
-    select policyname, tablename from pg_policies
-    where schemaname = 'public'
-      and tablename in ('children', 'learning_profiles', 'consents',
-                        'support_cycles', 'tutor_applications')
-  loop
-    execute format('drop policy %I on public.%I', p.policyname, p.tablename);
-  end loop;
-end $$;
+select format('drop policy %I on public.%I;', policyname, tablename) as comando_drop
+from pg_policies
+where schemaname = 'public'
+  and tablename in ('children', 'learning_profiles', 'consents',
+                    'support_cycles', 'tutor_applications');
+
+-- 2b) As policies que ESTE script cria já caem aqui (permite rodar
+-- o script de novo sem erro de nome duplicado):
+
+drop policy if exists children_guardian_select on public.children;
+drop policy if exists children_guardian_insert on public.children;
+drop policy if exists children_guardian_update on public.children;
+drop policy if exists children_tutor_select on public.children;
+drop policy if exists children_admin_all on public.children;
+drop policy if exists lp_guardian_select on public.learning_profiles;
+drop policy if exists lp_guardian_insert on public.learning_profiles;
+drop policy if exists lp_tutor_select on public.learning_profiles;
+drop policy if exists lp_admin_all on public.learning_profiles;
+drop policy if exists consents_guardian_select on public.consents;
+drop policy if exists consents_guardian_insert on public.consents;
+drop policy if exists consents_admin_select on public.consents;
+drop policy if exists sc_tutor_select on public.support_cycles;
+drop policy if exists sc_guardian_select on public.support_cycles;
+drop policy if exists sc_admin_all on public.support_cycles;
+drop policy if exists ta_tutor_select on public.tutor_applications;
+drop policy if exists ta_tutor_insert on public.tutor_applications;
+drop policy if exists ta_admin_all on public.tutor_applications;
 
 -- 3) Recria as policies (MVP) ---------------------------------
 
@@ -129,11 +147,13 @@ grant select, insert on public.consents to authenticated;
 grant select, insert, update on public.support_cycles to authenticated;
 grant select, insert, update on public.tutor_applications to authenticated;
 
--- 5) (OPCIONAL, recomendado) Trigger de criação do profile ------
--- Garante: responsável entra como 'active' (vê "cadastro em análise"
--- no painel) e tutor entra como 'pending' (barrado até aprovação).
--- Se você já tem um trigger com outro nome fazendo isso, ajuste lá
--- em vez de rodar este bloco.
+-- 5) Trigger de criação do profile ------------------------------
+-- ⚠️ SUPERSEDED: use docs/supabase-signup-fix.sql no lugar desta
+-- seção. Este bloco só remove um trigger chamado on_auth_user_created;
+-- se o trigger antigo tiver OUTRO nome, ficam dois triggers inserindo
+-- em profiles e todo signup quebra com "Database error saving new user".
+-- O signup-fix remove todos os triggers de usuário do auth.users antes
+-- de recriar um único.
 
 create or replace function public.handle_new_user()
 returns trigger

@@ -1791,3 +1791,168 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   FASE 2.5/3 — componentes de estado (badge, vazio, carregando)
+   Usam os tokens semânticos do tokens.css (--ok/--warn/--bad).
+   ============================================================ */
+
+/* status sempre com a mesma linguagem visual, em qualquer tela */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-ok {
+  border-color: rgba(28, 124, 84, 0.3);
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.badge-warn {
+  border-color: rgba(179, 89, 10, 0.3);
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.badge-bad {
+  border-color: rgba(163, 18, 58, 0.3);
+  background: var(--bad-soft);
+  color: var(--bad);
+}
+
+/* vazio é direção, não tela quebrada (§11) */
+.empty-state {
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
+  border: 1px dashed var(--line);
+  border-radius: var(--r);
+  padding: var(--sp-6) var(--sp-4);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.empty-state strong {
+  color: var(--navy);
+  font-size: 0.95rem;
+}
+
+/* carregando: bloco calmo varrendo devagar, sem spinner agitado (§11) */
+.skeleton {
+  min-height: 120px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: linear-gradient(100deg, var(--surface) 40%, var(--surface-muted) 50%, var(--surface) 60%);
+  background-size: 200% 100%;
+  animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+.skeleton + .skeleton {
+  margin-top: var(--sp-3);
+}
+
+@keyframes skeleton-sweep {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -20% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--surface-muted);
+  }
+}
+
+/* erro localizado no card da ação que falhou */
+.card-error {
+  margin: 8px 0 0;
+  color: var(--bad);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* rótulo das filas da triagem (crianças / tutores) */
+.pipeline-col .queue-label {
+  margin: var(--sp-4) var(--sp-2) var(--sp-2);
+}
+
+.pipeline-col .queue-label:first-of-type {
+  margin-top: var(--sp-1);
+}
+
+/* dossiê expansível dentro do card (perfil pedagógico / candidatura) */
+.card-details {
+  margin-top: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.card-details summary {
+  cursor: pointer;
+  color: var(--navy);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.card-details summary:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* §10 densidade: linhas com divisória hairline, não card dentro de card */
+.card-facts {
+  display: grid;
+  gap: 0;
+  margin: 6px 0 0;
+}
+
+.card-facts div {
+  display: grid;
+  gap: 1px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.card-facts div:last-child {
+  border-bottom: 0;
+}
+
+.card-facts dt {
+  color: var(--wine);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.card-facts dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}

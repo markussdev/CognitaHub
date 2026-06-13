@@ -149,13 +149,13 @@ O projeto considera princípios de acessibilidade cognitiva importantes para cri
 | Cadastro de responsável | Em implementação (grava no Supabase) |
 | Dashboard do responsável | Protótipo (dados simulados) |
 | Dashboard do tutor | Protótipo (dados simulados) |
-| Painel administrativo | Protótipo (dados simulados) |
+| Painel administrativo | Triagem funcional (aprova/recusa pelo site) |
 | Banco de dados | Em implementação (Supabase) |
 
 ## Próximos passos
 
-* [ ] Painel admin listando cadastros pendentes reais (triagem).
-* [ ] Aprovação de criança e tutor pelo admin.
+* [x] Painel admin listando cadastros pendentes reais (triagem).
+* [x] Aprovação de criança e tutor pelo admin.
 * [ ] Registro de sessões do tutor no banco.
 * [ ] Painel do responsável lendo status real do ciclo.
 * [ ] Biblioteca de atividades vinda do Supabase.

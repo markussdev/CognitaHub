@@ -1,0 +1,49 @@
+/* ============================================================
+   COGNITA — TOKENS (Fase 2.5)
+   Variáveis de design compartilhadas por todas as páginas.
+   Carregado ANTES de styles.css e internal.css: em caso de
+   duplicata, o legado vence por ordem (mesmos valores hoje) —
+   a migração acontece componente a componente, sem big bang.
+   Direção: docs/PLANO-V1.md §6.
+   ============================================================ */
+
+:root {
+  /* Cor — papel de cada uma, não só o valor */
+  --ink: #230220;          /* texto forte */
+  --ink-soft: #5b4a58;     /* texto secundário */
+  --paper: #fffffc;        /* fundo de leitura */
+  --paper-raised: #ffffff; /* cartões */
+  --brand: #141162;        /* ação principal, links, marca */
+  --brand-deep: #540042;   /* títulos de seção, contraste */
+  --accent: #ffa800;       /* UM destaque por tela, nunca mais que isso */
+
+  /* Semânticas de status — badge, alerta, validação (mesma
+     linguagem visual para criança, tutor, ciclo e sessão) */
+  --ok: #1c7c54;
+  --warn: #b3590a;
+  --bad: #a3123a;
+  --ok-soft: rgba(28, 124, 84, 0.09);
+  --warn-soft: rgba(179, 89, 10, 0.09);
+  --bad-soft: rgba(163, 18, 58, 0.08);
+
+  /* Tipo — a troca de fonte (Atkinson/Baloo) fica para a Fase 7;
+     quando vier, é trocar estas duas linhas */
+  --font-display: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+
+  /* Espaço — escala única de 8px */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s6: 48px;
+
+  /* Forma */
+  --radius: 14px;
+  --shadow: 0 2px 12px rgba(20, 17, 98, 0.08);
+  --border: 1px solid rgba(20, 17, 98, 0.12);
+}
